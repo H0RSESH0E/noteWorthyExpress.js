@@ -1,0 +1,24 @@
+{
+  "name": "noteWorthyExpress.js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/H0RSESH0E/noteWorthyExpress.js.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/H0RSESH0E/noteWorthyExpress.js/issues"
+  },
+  "homepage": "https://github.com/H0RSESH0E/noteWorthyExpress.js#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}
