@@ -31,9 +31,6 @@ const getNotes = () =>
     headers: {
       'Content-Type': 'application/json',
     },
-  }).then(notes => {
-    // console.log("~~~", notes);
-    return notes;
   });
 
 const saveNote = (note) =>
@@ -51,7 +48,6 @@ const deleteNote = (id) =>
     headers: {
       'Content-Type': 'application/json',
     },
-
   });
 
 const renderActiveNote = () => {
@@ -93,12 +89,14 @@ const handleNoteDelete = (e) => {
     activeNote = {};
   }
 
-  deleteNote(noteId).then((response => console.log("This is the public response", response.json())))
-  
-  .then(() => {
-
-    getAndRenderNotes();
-    renderActiveNote();
+  // To avoid refactoring a lot of code I don't yet understand, 
+  // I added a delay to allow the POST time to finish before the next GET commences
+  deleteNote(noteId).then(() => {
+    let x = setTimeout(() => {
+      getAndRenderNotes();
+      renderActiveNote();
+    }, 450);
+ 
   });
 };
 
@@ -126,7 +124,6 @@ const handleRenderSaveBtn = () => {
 // Render the list of note titles
 const renderNoteList = async (notes) => {
   let jsonNotes = await notes.json();
-  // console.log("@@@", jsonNotes);
   if (window.location.pathname === '/notes') {
     noteList.forEach((el) => (el.innerHTML = ''));
   }
@@ -182,7 +179,6 @@ const renderNoteList = async (notes) => {
 const getAndRenderNotes = () => getNotes().then(renderNoteList);
 
 if (window.location.pathname === '/notes') {
-  saveNoteBtn.addEventListener('click', handleNoteSave);
   saveNoteBtn.addEventListener('click', handleNoteSave);
   newNoteBtn.addEventListener('click', handleNewNoteView);
   noteTitle.addEventListener('keyup', handleRenderSaveBtn);

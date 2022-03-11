@@ -1,32 +1,29 @@
 const router = require('express').Router();
-const path = require('path');
-const generatePassword = require('../../lib/uniqueId.js')
-const { validateNote, createNewNote, writeDbJSON } = require('../../lib/notes.js');
+const genId = require('../../lib/uniqueId.js')
+const writeDbJson = require('../../lib/notes.js');
 
-const { notesArr } = require('../../db/db.json');
-console.log(notesArr);
-console.log(notesArr.length);
+// Contents from the db.json file are served to the web page 
 router.get('/notes', (req, res) => {
-    // let results = notesArr;
-    // if (req.query) {
-    //   results = filterByQuery(req.query, results);
-    // }
+    let notesArr = require('../../db/db.json');
     res.json(notesArr);
 });
 
-
+// new data is accepted from the browser
 router.post('/notes', (req, res) => {
-    req.body.id = generatePassword();
-    notesArr.push(req.body);
-    console.log(notesArr);
-    res.json(notesArr);
+    req.body.id = genId();
+    let postNotesArr = require('../../db/db.json');
+    postNotesArr.push(req.body);
+    writeDbJson(postNotesArr)
+    res.json('Your data was posted successfully');
 }
 );
 
-
+// requests to delete data are received here
 router.delete('/notes/:idNumber', (req, res) => {
-
-    writeDbJSON(req.params.idNumber, notesArr)
+    let notesArr = require('../../db/db.json');
+    notesArr = notesArr.filter(note => req.params.idNumber !== note.id)
+    writeDbJson(notesArr)
+    res.json('The data was deleted from the database.');
 });
 
 module.exports = router; 
