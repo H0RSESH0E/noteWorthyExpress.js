@@ -95,7 +95,7 @@ const handleNoteDelete = (e) => {
     let x = setTimeout(() => {
       getAndRenderNotes();
       renderActiveNote();
-    }, 450);
+    }, 2450);
  
   });
 };
