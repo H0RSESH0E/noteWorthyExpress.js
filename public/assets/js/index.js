@@ -89,14 +89,10 @@ const handleNoteDelete = (e) => {
     activeNote = {};
   }
 
-  // To avoid refactoring a lot of code I don't yet understand, 
-  // I added a delay to allow the POST time to finish before the next GET commences
-
-
-
-  deleteNote(noteId)
-  .then(() => { getAndRenderNotes()})
-    .then(() => { renderActiveNote() });
+  deleteNote(noteId).then(() => {
+    getAndRenderNotes();
+    renderActiveNote(); 
+  });
   
 };
 
